@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Mauro/eclipse-workspace/TP001-TurismoTierraMedia/database.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="0" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2670"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainusuarios"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="atraccion_promocion" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="39"/><column index="2" value="145"/><column index="3" value="145"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="atracciones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="113"/><column index="2" value="119"/><column index="3" value="57"/><column index="4" value="65"/><column index="5" value="49"/><column index="6" value="95"/><column index="7" value="113"/><column index="8" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="itinerarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="39"/><column index="2" value="129"/><column index="3" value="137"/><column index="4" value="57"/><column index="5" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="promociones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="113"/><column index="2" value="135"/><column index="3" value="129"/><column index="4" value="129"/><column index="5" value="89"/><column index="6" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipos_atracciones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="153"/><column index="2" value="95"/><column index="3" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipos_promociones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="153"/><column index="2" value="87"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="usuarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="97"/><column index="2" value="79"/><column index="3" value="105"/><column index="4" value="65"/><column index="5" value="129"/><column index="6" value="81"/><column index="7" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">DROP TABLE IF EXISTS &quot;promociones&quot;;
+
+CREATE TABLE &quot;promociones&quot; (
+	&quot;id_promocion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;tipo_atraccion&quot;	TEXT NOT NULL,
+	&quot;tipo_promocion&quot;	TEXT NOT NULL,
+	&quot;descuento&quot;	REAL,
+	&quot;activo&quot; INTEGER NOT NULL,
+	PRIMARY KEY(&quot;id_promocion&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;tipo_promocion&quot;) REFERENCES &quot;tipos_promociones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;tipo_atraccion&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;atracciones&quot;;
+
+CREATE TABLE &quot;atracciones&quot; (
+	&quot;id_atraccion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;costo&quot;	INTEGER NOT NULL,
+	&quot;tiempo&quot;	REAL NOT NULL,
+	&quot;cupo&quot;	INTEGER NOT NULL,
+	&quot;tipo&quot;	TEXT NOT NULL,
+	&quot;id_promocion&quot; INTEGER,
+	&quot;activo&quot; INTEGER NOT NULL,
+	PRIMARY KEY(&quot;id_atraccion&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;tipo&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;id_promocion&quot;) REFERENCES &quot;promociones&quot;(&quot;id_promocion&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;usuarios&quot;;
+
+CREATE TABLE &quot;usuarios&quot; (
+	&quot;id_usuario&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;presupuesto&quot;	INTEGER NOT NULL,
+	&quot;tiempo&quot;	REAL NOT NULL,
+	&quot;tipo_atraccion&quot;	TEXT NOT NULL,
+	&quot;es_admin&quot; INTEGER NOT NULL,
+	&quot;activo&quot; INTEGER NOT NULL,
+	FOREIGN KEY(&quot;tipo_atraccion&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;),
+	PRIMARY KEY(&quot;id_usuario&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;tipos_atracciones&quot;;
+
+CREATE TABLE &quot;tipos_atracciones&quot; (
+	&quot;id_tipo_atraccion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;activo&quot; INTEGER NOT NULL,
+	PRIMARY KEY(&quot;id_tipo_atraccion&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;tipos_promociones&quot;;
+
+CREATE TABLE &quot;tipos_promociones&quot; (
+	&quot;id_tipo_promocion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	PRIMARY KEY(&quot;id_tipo_promocion&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;itinerarios&quot;;
+
+CREATE TABLE &quot;itinerarios&quot; (
+	&quot;id&quot;	INTEGER NOT NULL,
+	&quot;nombre_usuario&quot;	TEXT NOT NULL,
+	&quot;nombre_producto&quot;	TEXT,
+	&quot;costo&quot;	INTEGER,
+	&quot;tiempo&quot;	REAL,
+	FOREIGN KEY(&quot;nombre_usuario&quot;) REFERENCES &quot;usuarios&quot;(&quot;nombre&quot;),
+	PRIMARY KEY(&quot;id&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;atraccion_promocion&quot;;
+
+CREATE TABLE &quot;atraccion_promocion&quot; (
+	&quot;id&quot;	INTEGER NOT NULL,
+	&quot;nombre_atraccion&quot;	TEXT NOT NULL,
+	&quot;nombre_promocion&quot;	TEXT NOT NULL,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;nombre_promocion&quot;) REFERENCES &quot;promociones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;nombre_atraccion&quot;) REFERENCES &quot;atracciones&quot;(&quot;nombre&quot;)
+);
+
+INSERT INTO tipos_atracciones (nombre, activo)
+VALUES
+	('AVENTURA', 1),
+	('DEGUSTACION', 1),
+	('PAISAJE', 1);
+	
+INSERT INTO tipos_promociones (nombre)
+VALUES
+	('PORCENTUAL'),
+	('ABSOLUTA'),
+	('AXB');
+
+INSERT INTO usuarios (nombre, presupuesto, tiempo, tipo_atraccion, es_admin, activo)
+VALUES
+	('Admin', 0, 0, 'AVENTURA', 1, 1),
+    ('Eowyn', 10, 8, 'AVENTURA', 0, 1),
+    ('Gandalf', 100, 5, 'PAISAJE', 0, 1),
+    ('Sam', 36, 8, 'DEGUSTACION', 0, 1),
+    ('Galadriel', 120, 2, 'PAISAJE', 0, 1),
+    ('Frodo', 50, 10, 'AVENTURA', 0, 1),
+    ('Sauron', 100, 32, 'PAISAJE', 0, 1);
+	
+	
+INSERT INTO promociones (nombre, tipo_atraccion, tipo_promocion, descuento, activo)
+VALUES
+    ('Pack aventura', 'AVENTURA', 'PORCENTUAL', 0.20, 1),
+    ('Pack degustacion', 'DEGUSTACION', 'ABSOLUTA', 36, 1);
+
+INSERT INTO promociones (nombre, tipo_atraccion, tipo_promocion, activo)
+VALUES ('Pack paisajes', 'PAISAJE', 'AXB', 1);
+
+INSERT INTO atracciones (nombre, costo, tiempo, cupo, tipo, id_promocion, activo)
+VALUES
+    ('Moria', 10 ,2 ,6 ,'AVENTURA', NULL, 1),
+    ('Minas Tirith', 5, 2.5, 25, 'PAISAJE', 3, 1),
+    ('La Comarca', 3, 6.5, 150, 'DEGUSTACION', 2, 1),
+    ('Mordor', 25, 3, 4, 'AVENTURA', 1, 1),
+    ('Abismo de Helm', 5, 2, 15, 'PAISAJE', 3, 1),
+    ('Lothlorien', 35,1,30, 'DEGUSTACION', 2, 1),
+    ('Erebor', 12, 3, 32, 'PAISAJE', 3, 1),
+    ('Bosque Negro', 3, 4, 12, 'AVENTURA', 1, 1);
+
+-- CREACION RELACIONES ATRACCION_PROMOCION
+
+INSERT INTO atraccion_promocion (nombre_atraccion, nombre_promocion)
+SELECT atracciones.nombre, promociones.nombre FROM atracciones
+JOIN promociones ON promociones.id_promocion = atracciones.id_promocion;
+
+
+-- CONSULTAS VARIAS
+
+--SELECT * FROM ITINERARIOS WHERE NOMBRE_ATRACCION = 'Moria' AND NOMBRE_USUARIO = 'asd'
+
+--SELECT atracciones.nombre, promociones.nombre FROM atraccion_promocion
+--JOIN atracciones ON atraccion_promocion.id_atraccion = atracciones.id_atraccion
+--JOIN promociones ON atraccion_promocion.id_promocion = promociones.id_promocion
+
+SELECT promociones.nombre, group_concat(atracciones.nombre, ';') as 'lista_atracciones', promociones.tipo_atraccion, promociones.tipo_promocion, promociones.descuento 
+FROM promociones
+JOIN atraccion_promocion ON atraccion_promocion.nombre_promocion= promociones.nombre
+JOIN atracciones ON atracciones.nombre = atraccion_promocion.nombre_atraccion
+GROUP BY promociones.nombre;
+
+SELECT * FROM promociones;
+
+SELECT itinerarios.nombre_usuario, group_concat(itinerarios.nombre_producto, ';') AS 'productos_itinerario'
+FROM itinerarios
+GROUP BY itinerarios.nombre_usuario;
+
+--SELECT COUNT(1) AS TOTAL FROM ITINERARIOS</sql><sql name="SQL 1">DROP TABLE IF EXISTS &quot;promociones&quot;;
+
+CREATE TABLE &quot;promociones&quot; (
+	&quot;id_promocion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;tipo_atraccion&quot;	TEXT NOT NULL,
+	&quot;tipo_promocion&quot;	TEXT NOT NULL,
+	&quot;descuento&quot;	REAL,
+	PRIMARY KEY(&quot;id_promocion&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;tipo_promocion&quot;) REFERENCES &quot;tipos_promociones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;tipo_atraccion&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;atracciones&quot;;
+
+CREATE TABLE &quot;atracciones&quot; (
+	&quot;id_atraccion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;costo&quot;	INTEGER NOT NULL,
+	&quot;tiempo&quot;	REAL NOT NULL,
+	&quot;cupo&quot;	INTEGER NOT NULL,
+	&quot;tipo&quot;	TEXT NOT NULL,
+	&quot;id_promocion&quot; INTEGER,
+	PRIMARY KEY(&quot;id_atraccion&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;tipo&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;id_promocion&quot;) REFERENCES &quot;promociones&quot;(&quot;id_promocion&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;usuarios&quot;;
+
+CREATE TABLE &quot;usuarios&quot; (
+	&quot;id_usuario&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	&quot;presupuesto&quot;	INTEGER NOT NULL,
+	&quot;tiempo&quot;	REAL NOT NULL,
+	&quot;tipo_atraccion&quot;	TEXT NOT NULL,
+	FOREIGN KEY(&quot;tipo_atraccion&quot;) REFERENCES &quot;tipos_atracciones&quot;(&quot;nombre&quot;),
+	PRIMARY KEY(&quot;id_usuario&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;tipos_atracciones&quot;;
+
+CREATE TABLE &quot;tipos_atracciones&quot; (
+	&quot;id_tipo_atraccion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	PRIMARY KEY(&quot;id_tipo_atraccion&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;tipos_promociones&quot;;
+
+CREATE TABLE &quot;tipos_promociones&quot; (
+	&quot;id_tipo_promocion&quot;	INTEGER NOT NULL,
+	&quot;nombre&quot;	TEXT NOT NULL UNIQUE,
+	PRIMARY KEY(&quot;id_tipo_promocion&quot; AUTOINCREMENT)
+);
+
+DROP TABLE IF EXISTS &quot;itinerarios&quot;;
+
+CREATE TABLE &quot;itinerarios&quot; (
+	&quot;id&quot;	INTEGER NOT NULL,
+	&quot;nombre_usuario&quot;	TEXT NOT NULL,
+	&quot;nombre_producto&quot;	TEXT,
+	&quot;costo&quot;	INTEGER,
+	&quot;tiempo&quot;	REAL,
+	FOREIGN KEY(&quot;nombre_usuario&quot;) REFERENCES &quot;usuarios&quot;(&quot;nombre&quot;),
+	PRIMARY KEY(&quot;id&quot;)
+);
+
+DROP TABLE IF EXISTS &quot;atraccion_promocion&quot;;
+
+CREATE TABLE &quot;atraccion_promocion&quot; (
+	&quot;id&quot;	INTEGER NOT NULL,
+	&quot;nombre_atraccion&quot;	TEXT NOT NULL,
+	&quot;nombre_promocion&quot;	TEXT NOT NULL,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;nombre_promocion&quot;) REFERENCES &quot;promociones&quot;(&quot;nombre&quot;),
+	FOREIGN KEY(&quot;nombre_atraccion&quot;) REFERENCES &quot;atracciones&quot;(&quot;nombre&quot;)
+);
+
+INSERT INTO tipos_atracciones (nombre)
+VALUES
+	('AVENTURA'),
+	('DEGUSTACION'),
+	('PAISAJE');
+	
+INSERT INTO tipos_promociones (nombre)
+VALUES
+	('PORCENTUAL'),
+	('ABSOLUTA'),
+	('AXB');
+
+INSERT INTO usuarios (nombre, presupuesto, tiempo, tipo_atraccion)
+VALUES
+    ('Eowyn', 10, 8, 'AVENTURA'),
+    ('Gandalf', 100, 5, 'PAISAJE'),
+    ('Sam', 36, 8, 'DEGUSTACION'),
+    ('Galadriel', 120, 2, 'PAISAJE'),
+    ('Frodo', 50, 10, 'AVENTURA'),
+    ('Sauron', 100, 32, 'PAISAJE');
+	
+INSERT INTO promociones (nombre, tipo_atraccion, tipo_promocion, descuento)
+VALUES
+    ('Pack aventura', 'AVENTURA', 'PORCENTUAL', 0.20),
+    ('Pack degustacion', 'DEGUSTACION', 'ABSOLUTA', 36);
+
+INSERT INTO promociones (nombre, tipo_atraccion, tipo_promocion)
+VALUES ('Pack paisajes', 'PAISAJE', 'AXB');
+
+INSERT INTO atracciones (nombre, costo, tiempo, cupo, tipo, id_promocion)
+VALUES
+    ('Moria', 10 ,2 ,6 ,'AVENTURA', NULL),
+    ('Minas Tirith', 5, 2.5, 25, 'PAISAJE', 3),
+    ('La Comarca', 3, 6.5, 150, 'DEGUSTACION', 2),
+    ('Mordor', 25, 3, 4, 'AVENTURA', 1),
+    ('Abismo de Helm', 5, 2, 15, 'PAISAJE', 3),
+    ('Lothlorien', 35,1,30, 'DEGUSTACION', 2),
+    ('Erebor', 12, 3, 32, 'PAISAJE', 3),
+    ('Bosque Negro', 3, 4, 12, 'AVENTURA', 1);
+
+-- CREACION RELACIONES ATRACCION_PROMOCION
+
+INSERT INTO atraccion_promocion (nombre_atraccion, nombre_promocion)
+SELECT atracciones.nombre, promociones.nombre FROM atracciones
+JOIN promociones ON promociones.id_promocion = atracciones.id_promocion
+
+
+-- CONSULTAS VARIAS
+
+--SELECT * FROM ITINERARIOS WHERE NOMBRE_ATRACCION = 'Moria' AND NOMBRE_USUARIO = 'asd'
+
+--SELECT atracciones.nombre, promociones.nombre FROM atraccion_promocion
+--JOIN atracciones ON atraccion_promocion.id_atraccion = atracciones.id_atraccion
+--JOIN promociones ON atraccion_promocion.id_promocion = promociones.id_promocion
+
+--SELECT promociones.nombre, group_concat(atracciones.nombre, ';') as 'lista_atracciones', promociones.tipo_atraccion, promociones.tipo_promocion, promociones.descuento 
+--FROM promociones
+--JOIN atraccion_promocion ON atraccion_promocion.nombre_promocion= promociones.nombre
+--JOIN atracciones ON atracciones.nombre = atraccion_promocion.nombre_atraccion
+--GROUP BY promociones.nombre
+
+--SELECT itinerarios.nombre_usuario, group_concat(itinerarios.nombre_producto, ';') AS 'producto'
+--FROM itinerarios
+--GROUP BY itinerarios.nombre_usuario;
+
+--SELECT COUNT(1) AS TOTAL FROM ITINERARIOS</sql><current_tab id="0"/></tab_sql></sqlb_project>
