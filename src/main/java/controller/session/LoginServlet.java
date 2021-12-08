@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
 import model.Usuario;
 import services.LoginService;
 
@@ -32,7 +31,7 @@ public class LoginServlet extends HttpServlet {
     	Usuario usuario = loginService.login(username, password);
     	
     	if (!usuario.isNull()) {
-    		req.getSession().setAttribute("user", usuario);
+    		req.getSession().setAttribute("usuario", usuario);
     		resp.sendRedirect("index.jsp");    		
        	} else {
     		req.setAttribute("flash", "Nombre de usuario o contraseña incorrectos");

@@ -116,8 +116,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	private Usuario toUser(ResultSet resultados) throws SQLException {
-		return new Usuario(resultados.getString(1), resultados.getString(2), resultados.getInt(3), resultados.getDouble(4),
-				TipoAtraccion.valueOf(resultados.getString(5)), resultados.getBoolean(6));
+		return new Usuario(resultados.getString(2), resultados.getString(3), resultados.getInt(4), resultados.getDouble(5),
+				TipoAtraccion.valueOf(resultados.getString(6)), resultados.getBoolean(7));
 	}
 
 	@Override
