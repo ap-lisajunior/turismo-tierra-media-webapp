@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import jdbc.ConnectionProvider;
+import persistence.commons.ConnectionProvider;
 import model.Usuario;
+import model.nullobjects.NullUser;
 import model.TipoAtraccion;
 import persistence.UsuarioDAO;
 import persistence.commons.MissingDataException;
@@ -63,7 +64,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			statement.setString(1, nombreUsuario);
 			ResultSet resultados = statement.executeQuery();
 
-			Usuario usuario = null;
+			Usuario usuario = NullUser.build();
 
 			if (resultados.next()) {
 				usuario = toUser(resultados);

@@ -15,7 +15,7 @@ import persistence.PromocionDAO;
 import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
-public class BuyProductService {
+public class BuyAttractionService {
 
 	LinkedList<Producto> productos = TurismoTierraMedia.getProductos();
 	PromocionDAO promociondao = DAOFactory.getPromocionDAO();
