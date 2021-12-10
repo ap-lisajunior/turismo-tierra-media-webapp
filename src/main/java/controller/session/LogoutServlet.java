@@ -12,11 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -7867918589650742322L;
 
-    @Override
+	@Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	req.getSession().removeAttribute("user");
+    	req.getSession().removeAttribute("usuario");
 		req.setAttribute("flash", "¡Hasta pronto!");
 		
 		RequestDispatcher dispatcher = getServletContext()

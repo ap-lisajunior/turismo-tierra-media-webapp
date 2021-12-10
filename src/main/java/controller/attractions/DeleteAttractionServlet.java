@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import services.AttractionService;
 
-@WebServlet("/attractions/delete.do")
+@WebServlet("/atracciones/delete.do")
 public class DeleteAttractionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1537949074766873118L;
@@ -23,11 +23,11 @@ public class DeleteAttractionServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		String nombre = req.getParameter("nombre");
 
-		attractionService.delete(id);
+		attractionService.delete(nombre);
 
-		resp.sendRedirect("/turismo/attractions/index.do");
+		resp.sendRedirect("/turismo/atracciones/index.do");
 	}
 
 

@@ -106,7 +106,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			statement.setInt(3, usuario.getPresupuesto());
 			statement.setDouble(4, usuario.getTiempo());
 			statement.setString(5, usuario.getTipoAtraccionToString());
-			statement.setBoolean(6, usuario.getAdmin());
+			statement.setBoolean(6, usuario.esAdmin());
 			int rows = statement.executeUpdate();
 
 			return rows;

@@ -1,14 +1,17 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class PromocionAbsoluta extends Promocion {
 	
-	private int costoFinal;
+	private Integer costoFinal;
+	private TipoPromocion tipoPromocion = TipoPromocion.ABSOLUTA;
 
-	public PromocionAbsoluta(String nombre, LinkedList<Atraccion> atracciones, TipoAtraccion tipoAtraccion, int costoFinal) {
+	public PromocionAbsoluta(String nombre, LinkedList<Atraccion> atracciones, TipoAtraccion tipoAtraccion, int costoFinal, Boolean activo) {
 		super(nombre, atracciones, tipoAtraccion);
 		this.costoFinal = costoFinal;
+		super.activo = activo;
 		calcularCostoFinal();
 	}
 
@@ -26,6 +29,45 @@ public class PromocionAbsoluta extends Promocion {
 			}
 		}
 		return auxMaxCupo;
+	}
+	
+
+	@Override
+	public boolean esPromoValida(TipoPromocion tipoPromocion) {
+		validatePromo(tipoPromocion);
+		return super.errores.isEmpty();
+	}
+	
+	@Override
+	public void validatePromo(TipoPromocion tipoPromocion) {
+		errores = new HashMap<String, String>();
+
+		if (tipoPromocion != this.tipoPromocion) {
+			errores.put("tipoPromocion", "El Tipo de Promocion no coincide");
+		}
+
+	}
+	
+	@Override
+	public TipoPromocion getTipoPromocion() {
+		return this.tipoPromocion;
+	}
+	
+	@Override
+	public void setTipoPromocion(TipoPromocion tipoPromocion) {
+		this.tipoPromocion = tipoPromocion;
+		
+	}
+
+
+	@Override
+	public double getDescuento() {
+		return costo;
+	}
+
+	@Override
+	public void setDescuento(Double descuento) {
+		this.costoFinal = descuento.intValue();
 	}
 
 }

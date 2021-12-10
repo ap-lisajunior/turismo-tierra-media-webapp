@@ -11,6 +11,7 @@ public class Usuario {
 	private Itinerario itinerario;
 	private String password;
 	private Boolean admin;
+	private Boolean activo;
 
 
 	public Usuario(String nombre, String password, int presupuesto, double tiempo, TipoAtraccion tipoAtraccion, Boolean admin) {
@@ -47,7 +48,7 @@ public class Usuario {
 		return tipoAtraccion;
 	}
 
-	public Boolean getAdmin() {
+	public Boolean esAdmin() {
 		return this.admin;
 	}
 
@@ -72,10 +73,19 @@ public class Usuario {
 		return this.getPresupuesto() >= producto.getCosto() && this.getTiempo() >= producto.getTiempo();
 	}
 
-	protected void aceptarOferta(Producto producto) {
+	public void aceptarOferta(Producto producto) {
 		this.setPresupuesto(this.getPresupuesto() - producto.getCosto());
 		this.setTiempo(this.getTiempo() - producto.getTiempo());
 	}
+	
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
 
 	@Override
 	public String toString() {

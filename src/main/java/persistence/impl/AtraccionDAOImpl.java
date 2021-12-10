@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import jdbc.ConnectionProvider;
+import persistence.commons.ConnectionProvider;
 import model.Atraccion;
 import model.Producto;
 import model.TipoAtraccion;
@@ -18,7 +18,22 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	@Override
 	public List<Producto> findAll() {
-		return null;
+		try {
+			String sql = "SELECT * FROM atracciones";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+			
+			LinkedList<Producto> atracciones = new LinkedList<Producto>();
+			while(resultados.next()) {
+				atracciones.add(toAtraccion(resultados));
+			}
+			
+			return atracciones;
+			
+		} catch(Exception e){
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -42,7 +57,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	@Override
 	public int insert(Producto atraccion) {
 		try {
-			String sql = "INSERT INTO ATRACCIONES (NOMBRE, COSTO, TIEMPO, CUPO, TIPO) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ATRACCIONES (NOMBRE, COSTO, TIEMPO, CUPO, TIPO, ACTIVO) VALUES (?, ?, ?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -51,6 +66,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			statement.setDouble(4, atraccion.getTiempo());
 			statement.setInt(5, atraccion.getCupo());
 			statement.setString(6, atraccion.getTipoAtraccion().toString());
+			statement.setInt(7, atraccion.getActivo() ? 1 : 0);
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -61,6 +77,27 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	@Override
 	public int update(Producto atraccion) {
+		try {
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, COSTO = ?, TIEMPO = ?, CUPO = ?, ACTIVO = ? WHERE NOMBRE = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, atraccion.getNombre());
+			statement.setInt(2, atraccion.getCosto());
+			statement.setDouble(3, atraccion.getTiempo());
+			statement.setInt(4, atraccion.getCupo());
+			statement.setInt(5, atraccion.getActivo() ? 1 : 0);
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int updateCupo(Producto atraccion) {
+		
 		try {
 			String sql = "UPDATE ATRACCIONES SET CUPO = ? WHERE NOMBRE = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -76,14 +113,16 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
+	
+	
 	@Override
-	public int delete(Producto atracciones) {
+	public int delete(Producto atraccion) {
 		try {
 			String sql = "DELETE FROM ATRACCIONES WHERE NOMBRE = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atracciones.getNombre());
+			statement.setString(1, atraccion.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -95,7 +134,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	@Override
 	public LinkedList<Producto> createAtracciones() {
 		try {
-			String sql = "SELECT nombre, costo, tiempo, cupo, tipo FROM atracciones";
+			String sql = "SELECT nombre, costo, tiempo, cupo, tipo, activo FROM atracciones";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -114,7 +153,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	
 
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
-		return new Atraccion(resultados.getString("nombre"), resultados.getInt("costo"), resultados.getDouble("tiempo"), resultados.getInt("cupo"), TipoAtraccion.valueOf(resultados.getString("tipo")));
+		return new Atraccion(resultados.getString("nombre"), resultados.getInt("costo"), resultados.getDouble("tiempo"), resultados.getInt("cupo"), TipoAtraccion.valueOf(resultados.getString("tipo")), resultados.getBoolean("activo"));
 	}
 
 	@Override

@@ -1,14 +1,19 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public abstract class Producto {
 	
 	private String nombre;
-	private int costo;
+	protected int costo;
 	private double tiempo;
 	TipoAtraccion tipoAtraccion;
 	protected Boolean comprado = false;
+	protected Boolean activo;
+	
+	public Map<String, String> errores;
 	
 	public Producto(String nombre, TipoAtraccion tipoAtraccion) {
 		this.setNombre(nombre);
@@ -18,7 +23,7 @@ public abstract class Producto {
 	public Producto(String nombre) {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -34,6 +39,10 @@ public abstract class Producto {
 	public TipoAtraccion getTipoAtraccion() {
 		return this.tipoAtraccion;
 	}
+	
+	public void setTipoAtraccion(TipoAtraccion tipoAtraccion) {
+		this.tipoAtraccion = tipoAtraccion;
+	}
 
 	protected Boolean fueComprado() {
 		return this.comprado;
@@ -41,13 +50,20 @@ public abstract class Producto {
 	
 	abstract protected void setComprado(Boolean estado);
 	
-	abstract protected void reducirCupo();
+	public abstract void reducirCupo();
 	
-	abstract protected Boolean tieneCupo();
+	public abstract Boolean tieneCupo();
 	
-	abstract protected Boolean esUnaPromocion();
+	public abstract Boolean esUnaPromocion();
 
-	abstract protected LinkedList<Atraccion> getAtracciones();
+	public abstract LinkedList<Atraccion> getAtracciones();
+	
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	abstract public void setActivo(Boolean activo);
 	
 	public void setCosto(int costoFinal){
 		this.costo = costoFinal;
@@ -84,8 +100,8 @@ public abstract class Producto {
 
 	public abstract int getCupo();
 
-	protected void setNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 }

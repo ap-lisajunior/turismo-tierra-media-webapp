@@ -2,43 +2,23 @@ package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class Atraccion extends Producto {
 
 	private int cupo;
 	
-	private Map<String, String> errores;
-	
-	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoAtraccion tipoAtraccion) {
+	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoAtraccion tipoAtraccion, Boolean activo) {
 		super(nombre, tipoAtraccion);
 		super.setCosto(costo);
 		super.setTiempo(tiempo);
 		this.cupo = cupo;
+		super.activo = activo;
 	}
 	
 	public Atraccion(String nombre) {
 		super(nombre);
 	}
 
-	public boolean esValida() {
-		validate();
-		return errores.isEmpty();
-	}
-	
-	public void validate() {
-		errores = new HashMap<String, String>();
-
-		if (super.getCosto() <= 0) {
-			errores.put("costo", "Debe ser positivo");
-		}
-		if (super.getTiempo() <= 0) {
-			errores.put("duracion", "Debe ser positivo");
-		}
-		if (getCupo()<= 0) {
-			errores.put("capacidad", "Debe ser positivo");
-		}
-	}
 	
 	@Override
 	public void setNombre(String nombre) {
@@ -55,12 +35,12 @@ public class Atraccion extends Producto {
 	}
 	
 	@Override
-	protected void reducirCupo() {
+	public void reducirCupo() {
 		this.cupo--;
 	}
 
 	@Override
-	protected Boolean esUnaPromocion() {
+	public Boolean esUnaPromocion() {
 		return false;
 	}
 
@@ -74,9 +54,14 @@ public class Atraccion extends Producto {
 	protected void setComprado(Boolean estado) {
 		super.comprado = estado;
 	}
+	
+	@Override
+	public void setActivo(Boolean activo) {
+		super.activo = activo;		
+	}
 
 	@Override
-	protected LinkedList<Atraccion> getAtracciones() {
+	public LinkedList<Atraccion> getAtracciones() {
 		return null;
 	}
 	
@@ -87,5 +72,25 @@ public class Atraccion extends Producto {
 				+ "\nCosto: " + this.getCosto() + " monedas."
 				+ "\nTiempo de permanencia: " + this.getTiempo() + " horas.";
 	}
+
+	public boolean esValida() {
+		validate();
+		return super.errores.isEmpty();
+	}
+	
+	public void validate() {
+		errores = new HashMap<String, String>();
+
+		if (this.getCosto() <= 0) {
+			errores.put("costo", "Debe ser positivo");
+		}
+		if (this.getTiempo() <= 0) {
+			errores.put("tiempo", "Debe ser positivo");
+		}
+		if (this.getCupo()<= 0) {
+			errores.put("cupo", "Debe ser positivo");
+		}
+	}
+
 	
 }

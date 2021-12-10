@@ -8,10 +8,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Attraction;
+import model.Atraccion;
 import services.AttractionService;
 
-@WebServlet("/attractions/edit.do")
+@WebServlet("/atracciones/edit.do")
 public class EditAttractionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7598291131560345626L;
@@ -25,32 +25,31 @@ public class EditAttractionServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		String nombre = req.getParameter("nombre");
 
-		Attraction attraction = attractionService.find(id);
-		req.setAttribute("attraction", attraction);
+		Atraccion atraccion = attractionService.findByName(nombre);
+		req.setAttribute("atraccion", atraccion);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/attractions/edit.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/edit.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer id = Integer.parseInt(req.getParameter("id"));
-		String name = req.getParameter("name");
-		Integer cost = Integer.parseInt(req.getParameter("cost"));
-		// Integer cost = req.getParameter("cost").trim() == "" ? null : Integer.parseInt(req.getParameter("cost"));
-		Double duration = Double.parseDouble(req.getParameter("duration"));
-		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
+		String nombre = req.getParameter("nombre");
+		Integer costo = req.getParameter("costo").trim() == "" ? null : Integer.parseInt(req.getParameter("costo"));
+		Double tiempo = Double.parseDouble(req.getParameter("tiempo"));
+		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
+		Boolean activo = Boolean.parseBoolean(req.getParameter("activo"));
 
-		Attraction attraction = attractionService.update(id, name, cost, duration, capacity);
+		Atraccion atraccion = attractionService.update(nombre, costo, tiempo, cupo, activo);
 
-		if (attraction.isValid()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+		if (atraccion.esValida()) {
+			resp.sendRedirect("/turismo/atracciones/index.do");
 		} else {
-			req.setAttribute("attraction", attraction);
+			req.setAttribute("atraccion", atraccion);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/attractions/edit.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/edit.jsp");
 			dispatcher.forward(req, resp);
 		}
 	}

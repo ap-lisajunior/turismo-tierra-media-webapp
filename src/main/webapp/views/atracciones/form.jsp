@@ -3,33 +3,33 @@
 	<div class="mb-3">
 		<label for="name" class="col-form-label">Nombre:</label> <input
 			type="text" class="form-control" id="name" name="name"
-			required value="${attraction.name}">
+			required value="${producto.nombre}">
 	</div>
 	<div class="mb-3">
 		<label for="cost"
-			class='col-form-label ${attraction.errors.get("cost") != null ? "is-invalid" : "" }'>Costo:</label>
+			class='col-form-label ${producto.errores.get("costo") != null ? "is-invalid" : "" }'>Costo:</label>
 		<input class="form-control" type="number" id="cost" name="cost"
-			required value="${attraction.cost}"></input>
+			required value="${producto.costo}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${attraction.errors.get("cost")}'></c:out>
+			<c:out value='${producto.errores.get("costo")}'></c:out>
 		</div>
 	</div>
 	<div class="mb-3">
 		<label for="duration"
-			class='col-form-label ${attraction.errors.get("duration") != null ? "is-invalid" : "" }'>Duration:</label>
+			class='col-form-label ${producto.errores.get("tiempo") != null ? "is-invalid" : "" }'>Duration:</label>
 		<input class="form-control" type="number" id="duration" name="duration"
-			required value="${attraction.duration}"></input>
+			required value="${producto.tiempo}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${attraction.errors.get("duration")}'></c:out>
+			<c:out value='${producto.errores.get("tiempo")}'></c:out>
 		</div>
 	</div>
 	<div class="mb-3">
 		<label for="capacity"
-			class='col-form-label ${attraction.errors.get("capacity") != null ? "is-invalid" : "" }'>Capacity:</label>
+			class='col-form-label ${producto.errores.get("cu") != null ? "is-invalid" : "" }'>Capacity:</label>
 		<input class="form-control" type="number" id="capacity" name="capacity"
-			required value="${attraction.capacity}"></input>
+			required value="${producto.cupo}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${attraction.errors.get("capacity")}'></c:out>
+			<c:out value='${producto.errores.get("cupo")}'></c:out>
 		</div>
 	</div>
 </div>

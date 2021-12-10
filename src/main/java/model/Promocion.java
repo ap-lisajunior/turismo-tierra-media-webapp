@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,12 @@ public abstract class Promocion extends Producto{
 	
 	abstract protected void calcularCostoFinal();
 	
+	public abstract boolean esPromoValida(TipoPromocion tipoPromocion);
+	
+	public abstract void validatePromo(TipoPromocion tipoPromocion);
+	
+	public abstract void setTipoPromocion(TipoPromocion tipoPromocion);
+	
 	protected void calcularTiempoTotal() {
 		double aux = 0;
 		for(Atraccion atraccion : atracciones) {
@@ -24,12 +31,12 @@ public abstract class Promocion extends Producto{
 	}
 	
 	@Override
-	protected LinkedList<Atraccion> getAtracciones() {
+	public LinkedList<Atraccion> getAtracciones() {
 		return atracciones;
 	}
 	
 	@Override
-	protected Boolean tieneCupo() {
+	public Boolean tieneCupo() {
 		for(Producto atraccion : atracciones) {
 			if(atraccion.getCupo() == 0) {
 				return false;
@@ -39,7 +46,7 @@ public abstract class Promocion extends Producto{
 	}
 	
 	@Override
-	protected void reducirCupo() {
+	public void reducirCupo() {
 		for(Atraccion atraccion : atracciones) {
 			atraccion.reducirCupo();
 		}
@@ -52,9 +59,15 @@ public abstract class Promocion extends Producto{
 		}
 		this.comprado = estado;
 	}
+	
+	@Override
+	public void setActivo(Boolean activo) {
+		super.activo = activo;		
+	}
+
 
 	@Override
-	protected Boolean esUnaPromocion() {
+	public Boolean esUnaPromocion() {
 		return true;
 	}
 	
@@ -65,7 +78,12 @@ public abstract class Promocion extends Producto{
 				+ " que abarca las siguientes atracciones: " + this.getAtracciones().stream().map(Producto::getNombre).collect(Collectors.toList()) + "." 
 				+ "\nCosto total: " + this.getCosto() + " monedas." 
 				+ "\nTiempo de permanencia total: " + this.getTiempo() + " horas.";
-	}		
-	
+	}
+
+	public abstract TipoPromocion getTipoPromocion();
+
+	public abstract double getDescuento();
+
+	public abstract void setDescuento(Double descuento);
 	
 }

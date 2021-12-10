@@ -8,10 +8,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Attraction;
+import model.Atraccion;
+import model.TipoAtraccion;
 import services.AttractionService;
 
-@WebServlet("/attractions/create.do")
+@WebServlet("/atracciones/create.do")
 public class CreateAttractionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3455721046062278592L;
@@ -32,19 +33,21 @@ public class CreateAttractionServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String name = req.getParameter("name");
-		Integer cost = Integer.parseInt(req.getParameter("cost"));
-		Double duration = Double.parseDouble(req.getParameter("duration"));
-		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
+		String nombre = req.getParameter("nombre");
+		Integer costo = Integer.parseInt(req.getParameter("costo"));
+		Double tiempo = Double.parseDouble(req.getParameter("tiempo"));
+		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
+		TipoAtraccion tipoAtraccion = TipoAtraccion.valueOf(req.getParameter("tipo"));
+		Boolean valido = Boolean.parseBoolean(req.getParameter("valido"));
 
-		Attraction attraction = attractionService.create(name, cost, duration, capacity);
-		if (attraction.isValid()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+		Atraccion atraccion = attractionService.create(nombre, costo, tiempo, cupo, tipoAtraccion, valido);
+		if (atraccion.esValida()) {
+			resp.sendRedirect("/turismo/atracciones/index.do");
 		} else {
-			req.setAttribute("attraction", attraction);
+			req.setAttribute("atraccion", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/attractions/create.jsp");
+					.getRequestDispatcher("/views/atracciones/create.jsp");
 			dispatcher.forward(req, resp);
 		}
 

@@ -1,4 +1,4 @@
-package controller.attractions;
+package controller.products;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,26 +11,28 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Producto;
+import model.Usuario;
 import services.AttractionService;
+import services.ProductService;
 
-@WebServlet("/atracciones/index.do")
-public class ListAttractionsServlet extends HttpServlet implements Servlet {
+@WebServlet("/productos/index.do")
+public class ListProductsServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = -8346640902238722429L;
-	private AttractionService attractionService;
+	private static final long serialVersionUID = 7134460597485822777L;
+	private ProductService productService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.attractionService = new AttractionService();
+		this.productService = new ProductService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Producto> atracciones = attractionService.list();
-		req.setAttribute("atracciones", atracciones);
+		List<Producto> productos = productService.listProductos((Usuario) req.getSession().getAttribute("usuario"));
+		req.setAttribute("productos", productos);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/index.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/productos/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}

@@ -8,8 +8,8 @@ import persistence.commons.DAOFactory;
 public class LoginService {
 
 	public Usuario login(String username, String password) {
-		UsuarioDAO usuariodao = DAOFactory.getUsuarioDAO();
-    	Usuario usuario = usuariodao.findByUsername(username);
+		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
+    	Usuario usuario = usuarioDAO.findByUsername(username);
     	
     	if (usuario.isNull() || !usuario.checkPassword(password)) {
     		usuario = NullUser.build();
