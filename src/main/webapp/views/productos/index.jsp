@@ -75,7 +75,7 @@
 						<td>
 						<c:choose>
 							<c:when
-								test="${usuario.puedeComprar(producto) && producto.tieneCupo()}">
+								test="${usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
 								<a href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
 									class="btn btn-success rounded" role="button">Comprar</a>
 							</c:when>

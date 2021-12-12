@@ -11,14 +11,13 @@
 
 	<main class="container">
 
-		<c:if test="${atraccion != null && !atraccion.isValid()}">
+		<c:if test="${atraccion != null && !atraccion.esValida()}">
 			<div class="alert alert-danger">
-				<p>Se encontraron errores al actualizar la atracción.</p>
+				<p>Se encontraron errores al crear la atracción.</p>
 			</div>
 		</c:if>
 
-		<form action="/turismo/attractions/edit.do" method="post">
-			<input type="hidden" name="nombre" value="${atraccion.nombre}">
+		<form action="/turismo/atracciones/crear.do" method="post">
 			<jsp:include page="/views/atracciones/form.jsp"></jsp:include>
 		</form>
 	</main>

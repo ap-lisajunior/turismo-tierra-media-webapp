@@ -1,4 +1,4 @@
-package controller.attractions;
+package controller.attractiontype;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,26 +15,22 @@ import model.TipoAtraccion;
 import services.AttractionService;
 import services.AttractionTypeService;
 
-@WebServlet("/atracciones/index.do")
-public class ListAttractionsServlet extends HttpServlet implements Servlet {
+@WebServlet("/tipoatracciones/index.do")
+public class ListAttractionTypeServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = -8346640902238722429L;
-	private AttractionService attractionService;
+	private static final long serialVersionUID = -8355766278160481441L;
 	private AttractionTypeService attractionTypeService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.attractionService = new AttractionService();
 		this.attractionTypeService = new AttractionTypeService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Producto> atracciones = attractionService.list();
 		List<TipoAtraccion> tiposAtracciones = attractionTypeService.list();
-		req.setAttribute("atracciones", atracciones);
-		req.setAttribute("tiposatracciones", tiposAtracciones);
+		req.setAttribute("tiposatraccion", tiposAtracciones);
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/index.jsp");
 		dispatcher.forward(req, resp);

@@ -61,12 +61,12 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(2, atraccion.getNombre());
-			statement.setInt(3, atraccion.getCosto());
-			statement.setDouble(4, atraccion.getTiempo());
-			statement.setInt(5, atraccion.getCupo());
-			statement.setString(6, atraccion.getTipoAtraccion().toString());
-			statement.setInt(7, atraccion.getActivo() ? 1 : 0);
+			statement.setString(1, atraccion.getNombre());
+			statement.setInt(2, atraccion.getCosto());
+			statement.setDouble(3, atraccion.getTiempo());
+			statement.setInt(4, atraccion.getCupo());
+			statement.setString(5, atraccion.getTipoAtraccion().toString());
+			statement.setInt(6, atraccion.getActivo() ? 1 : 0);
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -78,7 +78,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	@Override
 	public int update(Producto atraccion) {
 		try {
-			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, COSTO = ?, TIEMPO = ?, CUPO = ?, ACTIVO = ? WHERE NOMBRE = ?";
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, COSTO = ?, TIEMPO = ?, CUPO = ?, TIPO = ?, ACTIVO = ? WHERE NOMBRE = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -86,7 +86,8 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			statement.setInt(2, atraccion.getCosto());
 			statement.setDouble(3, atraccion.getTiempo());
 			statement.setInt(4, atraccion.getCupo());
-			statement.setInt(5, atraccion.getActivo() ? 1 : 0);
+			statement.setString(5, atraccion.getTipoAtraccion().toString());
+			statement.setInt(6, atraccion.getActivo() ? 1 : 0);
 			int rows = statement.executeUpdate();
 
 			return rows;

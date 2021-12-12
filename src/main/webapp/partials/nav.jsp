@@ -10,8 +10,22 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
+			<c:choose>
+			<c:when test="${usuario.esAdmin()}">
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/turismo/productos/index.do">Comprar</a></li>
+						aria-current="page" href="/turismo/atracciones/crear.do">Agregar atracciones</a>
+				</li>
+				<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/turismo/promociones/crear.do">Agregar promociones</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/turismo/productos/index.do">Comprar</a>
+				</li>
+			</c:otherwise>
+			</c:choose>
+
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">

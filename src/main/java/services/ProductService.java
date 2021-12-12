@@ -19,20 +19,24 @@ import persistence.commons.DAOFactory;
 
 public class ProductService {
 	
-	LinkedList<Producto> productos = TurismoTierraMedia.getProductos();
-	LinkedList<Producto> atracciones = TurismoTierraMedia.getAtracciones();
-	LinkedList<Producto> promociones = TurismoTierraMedia.getPromociones(atracciones);
+	AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+	PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
+	
+	
 	
 	public LinkedList<Producto> listProductos(Usuario usuario) {
+		LinkedList<Producto> productos = new LinkedList<Producto>();
+		productos.addAll(atraccionDAO.createAtracciones());
+		productos.addAll(promocionDAO.createPromociones(atraccionDAO.createAtracciones()));
 		TurismoTierraMedia.ordenarProductos(productos, usuario.getTipoAtraccion());
 		return productos;
 	}
 	
 	public LinkedList<Producto> listAtracciones() {
-		return atracciones;
+		return TurismoTierraMedia.getAtracciones();
 	}
 	public LinkedList<Producto> listPromociones() {
-		return promociones;
+		return TurismoTierraMedia.getPromociones(TurismoTierraMedia.getAtracciones());
 	}
 
 }
