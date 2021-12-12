@@ -46,12 +46,12 @@ public class BuyProductService {
 			
 			if (errores.isEmpty()) {
 				usuario.aceptarOferta(promocion);
-				usuarioDAO.update(usuario);
-				itinerarioDAO.insertProducto(usuario, promocion);
 				promocion.reducirCupo();
 				for(Atraccion atraccion : promocion.getAtracciones()) {
 					atraccionDAO.updateCupo(atraccion);
 				}
+				usuarioDAO.update(usuario);
+				itinerarioDAO.insertProducto(usuario, promocion);
 				itinerario.agregarProducto(promocion);
 				itinerario.setCosto(promocion.getCosto());
 				itinerario.setTiempo(promocion.getTiempo());
@@ -72,10 +72,10 @@ public class BuyProductService {
 			
 			if (errores.isEmpty()) {
 				usuario.aceptarOferta(atraccion);
+				atraccion.reducirCupo();
+				atraccionDAO.updateCupo(atraccion);
 				usuarioDAO.update(usuario);
 				itinerarioDAO.insertProducto(usuario, atraccion);
-				atraccion.reducirCupo();
-				atraccionDAO.update(atraccion);
 				itinerario.agregarProducto(atraccion);
 				itinerario.setCosto(atraccion.getCosto());
 				itinerario.setTiempo(atraccion.getTiempo());

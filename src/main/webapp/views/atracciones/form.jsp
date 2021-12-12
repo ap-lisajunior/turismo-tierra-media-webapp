@@ -42,7 +42,7 @@
 		</select>
 	</div>
 		<div class="mb-3">
-		<label for="capacity"
+		<label
 			class='col-form-label'>Activo:</label>
 		<input class="form-check-input" type="radio" id="activo" name="activo"
 			required value="true"></input>
