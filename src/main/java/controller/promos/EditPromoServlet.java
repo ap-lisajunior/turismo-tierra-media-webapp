@@ -1,4 +1,4 @@
-package controller.attractions;
+package controller.promos;
 
 import java.io.IOException;
 
@@ -9,26 +9,28 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Atraccion;
+import model.Promocion;
 import services.AttractionService;
+import services.PromoService;
 
-@WebServlet("/atracciones/editar.do")
-public class EditAttractionServlet extends HttpServlet {
+@WebServlet("/promociones/editar.do")
+public class EditPromoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 7598291131560345626L;
-	private AttractionService attractionService;
+	private static final long serialVersionUID = -805198761489452906L;
+	private PromoService promoService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.attractionService = new AttractionService();
+		this.promoService = new PromoService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nombre = req.getParameter("nombre");
 
-		Atraccion atraccion = attractionService.findByName(nombre);
-		req.setAttribute("atraccion", atraccion);
+		Promocion promocion = promoService.findByName(nombre);
+		req.setAttribute("promocion", promocion);
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/editar.jsp");
 		dispatcher.forward(req, resp);
@@ -37,19 +39,19 @@ public class EditAttractionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nombre = req.getParameter("nombre");
-		Double costo = req.getParameter("costo").trim() == "" ? null : Double.parseDouble(req.getParameter("costo"));
+		Integer costo = req.getParameter("costo").trim() == "" ? null : Integer.parseInt(req.getParameter("costo"));
 		Double tiempo = Double.parseDouble(req.getParameter("tiempo"));
 		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
 		Boolean activo = Boolean.parseBoolean(req.getParameter("activo"));
 
-		Atraccion atraccion = attractionService.update(nombre, costo, tiempo, cupo, activo);
+		Atraccion atraccion = promoService.update(nombre, costo, tiempo, cupo, activo);
 
 		if (atraccion.esValida()) {
 			resp.sendRedirect("/turismo/productos/index.do");
 		} else {
-			req.setAttribute("atraccion", atraccion);
+			req.setAttribute("promocion", promocion);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/atracciones/editar.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promociones/editar.jsp");
 			dispatcher.forward(req, resp);
 		}
 	}

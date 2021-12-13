@@ -26,10 +26,18 @@
 				</p>
 			</div>
 		</c:if>
-
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las atracciones y promociones de la Tierra Media</h1>
-		</div>
+		<c:choose>
+		<c:when test="${usuario.esAdmin()}">
+			<div class="bg-light p-4 mb-3 rounded">
+				<h1>Administracion de atracciones y promociones de la TM</h1>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="bg-light p-4 mb-3 rounded">
+				<h1>Estas son las atracciones y promociones de la Tierra Media</h1>
+			</div>
+		</c:otherwise>
+		</c:choose>
 
 <%--		<c:if test="${usuario.esAdmin()}">
 			<div class="mb-3">
@@ -46,7 +54,13 @@
 					<th>Costo</th>
 					<th>Duraci&oacute;n</th>
 					<th>Cupo</th>
-					<th>Compra</th>
+					<c:if test="${!usuario.esAdmin()}">
+						<th>Compra</th>
+					</c:if>
+					<c:if test="${usuario.esAdmin()}">
+						<th>Editar</th>
+					</c:if>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -72,6 +86,7 @@
 								<td></td>
 							</c:otherwise>
 						</c:choose>
+						<c:if test="${!usuario.esAdmin()}">
 						<td>
 						<c:choose>
 							<c:when
@@ -85,15 +100,29 @@
 							</c:otherwise>
 						</c:choose>
 						</td>
-<%--						<td><c:if test="${usuario.esAdmin()}">
-								<a href="/turismo/atracciones/edit.do?id=${atraccion.nombre}"
-									class="btn btn-light rounded-0" role="button"><i
-									class="bi bi-pencil-fill"></i></a>
-								<a href="/turismo/atracciones/delete.do?id=${atraccion.nombre}}"
+						</c:if>
+						<td><c:if test="${usuario.esAdmin()}">
+							<c:choose>
+								<c:when test="${producto.esUnaPromocion()}">
+									<a href="/turismo/promociones/editar.do?nombre=${producto.nombre}"
+									class="btn btn-light rounded-0" role="button">
+										<i class="bi bi-pencil-fill"></i>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="/turismo/atracciones/editar.do?nombre=${producto.nombre}"
+									class="btn btn-light rounded-0" role="button">
+										<i class="bi bi-pencil-fill"></i>
+									</a>
+								</c:otherwise>
+							</c:choose>
+								
+<%-- 								<a href="/turismo/atracciones/delete.do?id=${atraccion.nombre}}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
-							</c:if> </td>
-							--%>
+									--%>
+							</c:if> 
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -23,10 +23,11 @@ public class PromoService {
 	LinkedList<Producto> atracciones = TurismoTierraMedia.getAtracciones();
 	LinkedList<Producto> promociones = TurismoTierraMedia.getPromociones(atracciones);
 	
-	public LinkedList<Producto> listProductos(Usuario usuario) {
+	/*public LinkedList<Producto> listProductos(Usuario usuario) {
 		TurismoTierraMedia.ordenarProductos(productos, usuario.getTipoAtraccion());
 		return productos;
-	}
+	}*/
+	
 	public LinkedList<Producto> listAtracciones() {
 		return atracciones;
 	}
@@ -45,7 +46,7 @@ public class PromoService {
 	// LOS TIPOS DE VALORES DE DESCUENTO DIFIEREN UNO DE OTROS
 	// EN FRONTEND SE DECIDE QUE TIPO DE PROMOCION DAR DE ALTA
 	// EN ESTA CAPA VALIDO QUE NO PASE DATA INCORRECTA
-	public Promocion createPromoPorcentual(String nombre, String[] nombreAtracciones, String tipoAtraccion, String tipoPromocion, Double descuento, Boolean activo) {
+	public Promocion createPromoPorcentual(String nombre, String[] nombreAtracciones, TipoAtraccion tipoAtraccion, TipoPromocion tipoPromocion, Double descuento, Boolean activo) {
 
 		LinkedList<Atraccion> atraccionesPromocion = new LinkedList<Atraccion>();
 		
@@ -57,10 +58,10 @@ public class PromoService {
 			}
 		}
 		
-		Promocion promocion = new PromocionPorcentual(nombre, atraccionesPromocion, TipoAtraccion.valueOf(tipoAtraccion), descuento, activo);
+		Promocion promocion = new PromocionPorcentual(nombre, atraccionesPromocion, tipoAtraccion, descuento, activo);
 		
 		
-		if (promocion.esPromoValida(TipoPromocion.valueOf(tipoPromocion))) {
+		if (promocion.esPromoValida(tipoPromocion)) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 			promocionDAO.insert(promocion);
 			// XXX: si no devuelve "1", es que hubo más errores
@@ -69,7 +70,7 @@ public class PromoService {
 		return promocion;
 	}
 	
-	public Promocion createPromoAbsoluta(String nombre, String[] nombreAtracciones, String tipoAtraccion, String tipoPromocion, Integer precioFinal, Boolean activo) {
+	public Promocion createPromoAbsoluta(String nombre, String[] nombreAtracciones, TipoAtraccion tipoAtraccion, TipoPromocion tipoPromocion, Double precioFinal, Boolean activo) {
 
 		LinkedList<Atraccion> atraccionesPromocion = new LinkedList<Atraccion>();
 		
@@ -81,9 +82,9 @@ public class PromoService {
 			}
 		}
 		
-		Promocion promocion = new PromocionAbsoluta(nombre, atraccionesPromocion, TipoAtraccion.valueOf(tipoAtraccion), precioFinal, activo);
+		Promocion promocion = new PromocionAbsoluta(nombre, atraccionesPromocion, tipoAtraccion, precioFinal, activo);
 		
-		if (promocion.esPromoValida(TipoPromocion.valueOf(tipoPromocion))) {
+		if (promocion.esPromoValida(tipoPromocion)) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 			promocionDAO.insert(promocion);
 			// XXX: si no devuelve "1", es que hubo más errores
@@ -92,7 +93,7 @@ public class PromoService {
 		return promocion;
 	}
 	
-	public Promocion createPromoAxB(String nombre, String[] nombreAtracciones, String tipoAtraccion, String tipoPromocion, Boolean activo) {
+	public Promocion createPromoAxB(String nombre, String[] nombreAtracciones, TipoAtraccion tipoAtraccion, TipoPromocion tipoPromocion, Boolean activo) {
 
 		LinkedList<Atraccion> atraccionesPromocion = new LinkedList<Atraccion>();
 		
@@ -104,9 +105,9 @@ public class PromoService {
 			}
 		}
 		
-		Promocion promocion = new PromocionAxB(nombre, atraccionesPromocion, TipoAtraccion.valueOf(tipoAtraccion), activo);
+		Promocion promocion = new PromocionAxB(nombre, atraccionesPromocion, tipoAtraccion, activo);
 		
-		if (promocion.esPromoValida(TipoPromocion.valueOf(tipoPromocion))) {
+		if (promocion.esPromoValida(tipoPromocion)) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 			promocionDAO.insert(promocion);
 			// XXX: si no devuelve "1", es que hubo más errores
@@ -116,18 +117,18 @@ public class PromoService {
 	}
 
 
-	public Promocion update(String nombre, String tipoAtraccion, String tipoPromocion, Double descuento, Boolean activo) {
+	public Promocion update(String nombre, TipoAtraccion tipoAtraccion, TipoPromocion tipoPromocion, Double descuento, Boolean activo) {
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		Promocion promocion = promocionDAO.findByName(nombre, atracciones);
 
 		promocion.setNombre(nombre);
-		promocion.setTipoPromocion(TipoPromocion.valueOf(tipoPromocion));
-		promocion.setTipoAtraccion(TipoAtraccion.valueOf(tipoPromocion));
+		promocion.setTipoPromocion(tipoPromocion);
+		promocion.setTipoAtraccion(tipoAtraccion);
 		promocion.setDescuento(descuento);
 		promocion.setActivo(activo);
 		
-		if (promocion.esPromoValida(TipoPromocion.valueOf(tipoPromocion))) {
+		if (promocion.esPromoValida(tipoPromocion)) {
 			promocionDAO.update(promocion);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}

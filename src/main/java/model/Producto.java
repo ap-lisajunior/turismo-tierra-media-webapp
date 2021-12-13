@@ -7,7 +7,7 @@ import java.util.Map;
 public abstract class Producto {
 	
 	private String nombre;
-	protected int costo;
+	protected Double costo;
 	private double tiempo;
 	TipoAtraccion tipoAtraccion;
 	protected Boolean comprado = false;
@@ -28,7 +28,7 @@ public abstract class Producto {
 		return this.nombre;
 	}
 
-	public Integer getCosto() {
+	public Double getCosto() {
 		return this.costo;
 	}
 
@@ -65,7 +65,7 @@ public abstract class Producto {
 
 	abstract public void setActivo(Boolean activo);
 	
-	public void setCosto(int costoFinal){
+	public void setCosto(Double costoFinal){
 		this.costo = costoFinal;
 	}
 

@@ -62,7 +62,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
-			statement.setInt(2, atraccion.getCosto());
+			statement.setDouble(2, atraccion.getCosto());
 			statement.setDouble(3, atraccion.getTiempo());
 			statement.setInt(4, atraccion.getCupo());
 			statement.setString(5, atraccion.getTipoAtraccion().toString());
@@ -78,15 +78,15 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	@Override
 	public int update(Producto atraccion) {
 		try {
-			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, COSTO = ?, TIEMPO = ?, CUPO = ?, ACTIVO = ? WHERE NOMBRE = ?";
+			String sql = "UPDATE ATRACCIONES SET COSTO = ?, TIEMPO = ?, CUPO = ?, ACTIVO = ? WHERE NOMBRE = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atraccion.getNombre());
-			statement.setInt(2, atraccion.getCosto());
-			statement.setDouble(3, atraccion.getTiempo());
-			statement.setInt(4, atraccion.getCupo());
-			statement.setInt(5, atraccion.getActivo() ? 1 : 0);
+			statement.setDouble(1, atraccion.getCosto());
+			statement.setDouble(2, atraccion.getTiempo());
+			statement.setInt(3, atraccion.getCupo());
+			statement.setInt(4, atraccion.getActivo() ? 1 : 0);
+			statement.setString(5, atraccion.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -153,7 +153,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	
 
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
-		return new Atraccion(resultados.getString("nombre"), resultados.getInt("costo"), resultados.getDouble("tiempo"), resultados.getInt("cupo"), TipoAtraccion.valueOf(resultados.getString("tipo")), resultados.getBoolean("activo"));
+		return new Atraccion(resultados.getString("nombre"), resultados.getDouble("costo"), resultados.getDouble("tiempo"), resultados.getInt("cupo"), TipoAtraccion.valueOf(resultados.getString("tipo")), resultados.getBoolean("activo"));
 	}
 
 	@Override

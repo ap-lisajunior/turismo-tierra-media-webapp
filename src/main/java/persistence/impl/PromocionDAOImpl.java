@@ -70,7 +70,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 			return new PromocionPorcentual(nombre, atraccionesPromocion, tipoAtraccion, porcentajeDescuento, activo);
 		}
 		else if (tipoPromocion.equals(TipoPromocion.ABSOLUTA)) {
-			int costoFinal = resultados.getInt("descuento");
+			double costoFinal = resultados.getDouble("descuento");
 			return new PromocionAbsoluta(nombre, atraccionesPromocion, tipoAtraccion, costoFinal, activo);
 		}
 		else {
@@ -119,15 +119,9 @@ public class PromocionDAOImpl implements PromocionDAO {
 	}
 
 	@Override
-	public int insert(Producto t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(Producto promocion) {
+	public int insert(Producto promocion) {
 		try {			
-			String sql = "UPDATE PROMOCIONES SET NOMBRE = ?, TIPO_ATRACCION = ?, TIPO_PROMOCION = ?, DESCUENTO = ?, ACTIVO = ? WHERE NOMBRE = ?";
+			String sql = "INSERT INTO PROMOCIONES (NOMBRE, TIPO_ATRACCION, TIPO_PROMOCION, DESCUENTO, ACTIVO) VALUES (?, ? ,? ,?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -136,6 +130,26 @@ public class PromocionDAOImpl implements PromocionDAO {
 			statement.setString(3, ((Promocion) promocion).getTipoPromocion().toString());
 			statement.setDouble(4, ((Promocion) promocion).getDescuento());
 			statement.setInt(5, promocion.getActivo() ? 1 : 0);
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	@Override
+	public int update(Producto promocion) {
+		try {			
+			String sql = "UPDATE PROMOCIONES SET TIPO_ATRACCION = ?, TIPO_PROMOCION = ?, DESCUENTO = ?, ACTIVO = ? WHERE NOMBRE = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, promocion.getTipoAtraccion().toString());
+			statement.setString(2, ((Promocion) promocion).getTipoPromocion().toString());
+			statement.setDouble(3, ((Promocion) promocion).getDescuento());
+			statement.setInt(4, promocion.getActivo() ? 1 : 0);
+			statement.setString(5, promocion.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;

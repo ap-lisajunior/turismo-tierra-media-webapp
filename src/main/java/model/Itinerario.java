@@ -7,7 +7,7 @@ public class Itinerario {
 
 	private LinkedList<Producto> atracciones = new LinkedList<Producto>();
 	private LinkedList<Producto> promociones = new LinkedList<Producto>();
-	private Integer costo = 0;
+	private Double costo = 0.0;
 	private Double tiempo = 0.0;
 
 	public Itinerario() {
@@ -33,11 +33,11 @@ public class Itinerario {
 		}
 	}
 
-	public Integer getCosto() {
+	public Double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Integer costo) {
+	public void setCosto(Double costo) {
 		this.costo += costo;
 	}
 

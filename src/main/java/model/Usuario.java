@@ -5,7 +5,7 @@ import utils.Crypt;
 public class Usuario {
 
 	private String nombre;
-	private int presupuesto;
+	private Double presupuesto;
 	private double tiempo;
 	private TipoAtraccion tipoAtraccion;
 	private Itinerario itinerario;
@@ -14,7 +14,7 @@ public class Usuario {
 	private Boolean activo;
 
 
-	public Usuario(String nombre, String password, int presupuesto, double tiempo, TipoAtraccion tipoAtraccion, Boolean admin) {
+	public Usuario(String nombre, String password, Double presupuesto, double tiempo, TipoAtraccion tipoAtraccion, Boolean admin) {
 		this.nombre = nombre;
 		this.password = password;
 		this.presupuesto = presupuesto;
@@ -27,12 +27,12 @@ public class Usuario {
 		return nombre;
 	}
 
-	public int getPresupuesto() {
+	public Double getPresupuesto() {
 		return presupuesto;
 	}
 
 
-	public void setPresupuesto(int presupuesto) {
+	public void setPresupuesto(Double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 

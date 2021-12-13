@@ -13,10 +13,10 @@
 			<c:choose>
 			<c:when test="${usuario.esAdmin()}">
 				<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/turismo/atracciones/crear.do">Agregar atracciones</a>
+						aria-current="page" href="/turismo/atracciones/crear.do">Agregar atraccion</a>
 				</li>
 				<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/turismo/promociones/crear.do">Agregar promociones</a>
+						aria-current="page" href="/turismo/promociones/crear.do">Agregar promocion</a>
 				</li>
 			</c:when>
 			<c:otherwise>

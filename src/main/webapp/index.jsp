@@ -13,6 +13,11 @@
 				¡Bienvenido, <c:out value="${usuario.nombre}" />!
 			</h1>
 		</div>
+		<c:if test="${usuario.esAdmin()}">
+			<div class="bg-light p-4 rounded">
+				<a class="link-dark" href="productos/index.do"><h2>Listar productos</h2></a>
+			</div>
+		</c:if>
 	</main>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class PromocionPorcentual extends Promocion {
 		for(Atraccion atraccion : atracciones) {
 			aux += atraccion.getCosto();
 		}
-		super.setCosto((int) (aux - aux * this.porcentajeDescuento));
+		super.setCosto((aux - aux * this.porcentajeDescuento));
 	}
 	
 	@Override

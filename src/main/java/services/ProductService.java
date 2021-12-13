@@ -28,7 +28,9 @@ public class ProductService {
 		LinkedList<Producto> productos = new LinkedList<Producto>();
 		productos.addAll(atraccionDAO.createAtracciones());
 		productos.addAll(promocionDAO.createPromociones(atraccionDAO.createAtracciones()));
-		TurismoTierraMedia.ordenarProductos(productos, usuario.getTipoAtraccion());
+		if(!usuario.esAdmin()) {
+			TurismoTierraMedia.ordenarProductos(productos, usuario.getTipoAtraccion());
+		}
 		return productos;
 	}
 	

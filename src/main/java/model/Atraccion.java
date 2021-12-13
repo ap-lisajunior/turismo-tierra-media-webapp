@@ -7,7 +7,7 @@ public class Atraccion extends Producto {
 
 	private int cupo;
 	
-	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoAtraccion tipoAtraccion, Boolean activo) {
+	public Atraccion(String nombre, Double costo, double tiempo, int cupo, TipoAtraccion tipoAtraccion, Boolean activo) {
 		super(nombre, tipoAtraccion);
 		super.setCosto(costo);
 		super.setTiempo(tiempo);
@@ -17,6 +17,10 @@ public class Atraccion extends Producto {
 	
 	public Atraccion(String nombre) {
 		super(nombre);
+	}
+	
+	public String getTipo() {
+		return super.tipoAtraccion.toString();
 	}
 
 	

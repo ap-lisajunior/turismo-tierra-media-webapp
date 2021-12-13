@@ -39,7 +39,7 @@ public class CreateAttractionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nombre = req.getParameter("nombre");
-		Integer costo = Integer.parseInt(req.getParameter("costo"));
+		Double costo = Double.parseDouble(req.getParameter("costo"));
 		Double tiempo = Double.parseDouble(req.getParameter("tiempo"));
 		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
 		TipoAtraccion tipoAtraccion = TipoAtraccion.valueOf(req.getParameter("tipo"));
@@ -47,7 +47,7 @@ public class CreateAttractionServlet extends HttpServlet {
 
 		Atraccion atraccion = attractionService.create(nombre, costo, tiempo, cupo, tipoAtraccion, activo);
 		if (atraccion.esValida()) {
-			resp.sendRedirect("/turismo/atracciones/index.do");
+			resp.sendRedirect("/turismo/productos/index.do");
 		} else {
 			req.setAttribute("atraccion", atraccion);
 

@@ -5,10 +5,10 @@ import java.util.LinkedList;
 
 public class PromocionAbsoluta extends Promocion {
 	
-	private Integer costoFinal;
+	private Double costoFinal;
 	private TipoPromocion tipoPromocion = TipoPromocion.ABSOLUTA;
 
-	public PromocionAbsoluta(String nombre, LinkedList<Atraccion> atracciones, TipoAtraccion tipoAtraccion, int costoFinal, Boolean activo) {
+	public PromocionAbsoluta(String nombre, LinkedList<Atraccion> atracciones, TipoAtraccion tipoAtraccion, Double costoFinal, Boolean activo) {
 		super(nombre, atracciones, tipoAtraccion);
 		this.costoFinal = costoFinal;
 		super.activo = activo;
@@ -67,7 +67,7 @@ public class PromocionAbsoluta extends Promocion {
 
 	@Override
 	public void setDescuento(Double descuento) {
-		this.costoFinal = descuento.intValue();
+		this.costoFinal = descuento;
 	}
 
 }

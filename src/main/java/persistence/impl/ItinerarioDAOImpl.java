@@ -48,7 +48,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO{
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, usuario.getNombre());
 			statement.setString(2, producto.getNombre());
-			statement.setInt(3, producto.getCosto());
+			statement.setDouble(3, producto.getCosto());
 			statement.setDouble(4, producto.getTiempo());
 			int rows = statement.executeUpdate();
 

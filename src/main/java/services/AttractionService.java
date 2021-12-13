@@ -14,7 +14,7 @@ public class AttractionService {
 		return DAOFactory.getAtraccionDAO().createAtracciones();
 	}
 
-	public Atraccion create(String nombre, Integer costo, Double tiempo, Integer cupo, TipoAtraccion tipoAtraccion, Boolean activo) {
+	public Atraccion create(String nombre, Double costo, Double tiempo, Integer cupo, TipoAtraccion tipoAtraccion, Boolean activo) {
 
 		Atraccion atraccion = new Atraccion(nombre, costo, tiempo, cupo, tipoAtraccion, activo);
 
@@ -26,7 +26,7 @@ public class AttractionService {
 		return atraccion;
 	}
 
-	public Atraccion update(String nombre, Integer costo, Double tiempo, Integer cupo, Boolean activo) {
+	public Atraccion update(String nombre, Double costo, Double tiempo, Integer cupo, Boolean activo) {
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		Atraccion atraccion = atraccionDAO.findByName(nombre);
