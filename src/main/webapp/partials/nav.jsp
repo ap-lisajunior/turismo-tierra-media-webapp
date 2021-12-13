@@ -19,11 +19,7 @@
 						aria-current="page" href="/turismo/promociones/crear.do">Agregar promocion</a>
 				</li>
 			</c:when>
-			<c:otherwise>
-				<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/turismo/productos/index.do">Comprar</a>
-				</li>
-			</c:otherwise>
+			
 			</c:choose>
 
 			</ul>

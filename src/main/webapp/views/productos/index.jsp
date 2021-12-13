@@ -34,19 +34,106 @@
 			</c:when>
 			<c:otherwise>
 				<div class="bg-light p-4 mb-3 rounded">
-					<h1>Estas son las atracciones y promociones de la Tierra Media</h1>
+					<h1>Nuestros Productos</h1>
+					<br>
+					<h2 style="color: pink; text-align: center">Estas son las
+						principales sugerencias para usted</h2>
 				</div>
 			</c:otherwise>
 		</c:choose>
+		
+		<%-- <div id="carouselExampleSlidesOnly" class="carousel slide"
+					data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img class="d-block w-100"
+								src="assets/img/promo.png"
+								alt="First slide"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100"
+								src="assets/img/promo.png"
+								alt="Second slide"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100"
+								src="assets/img/promo.png"
+								alt="Third slide"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+					</div> 
+				</div> 
 
-		<%--		<c:if test="${usuario.esAdmin()}">
-			<div class="mb-3">
-				<a href="/turismo/atracciones/create.do" class="btn btn-primary"
-					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
-				</a>
-			</div>
-		</c:if>
---%>	
+
+
+segundo carousel
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<!-- Indicadores -->
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						<li data-target="#myCarousel" data-slide-to="1"></li>
+						<li data-target="#myCarousel" data-slide-to="2"></li>
+					</ol>
+
+					<!-- Entorno para las diapositivas -->
+					<div class="carousel-inner">
+						<div class="item active">
+							<img
+								src="assets/img/promo.png"
+								alt="Promo-1" style="width: 100%;"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+
+						<div class="item">
+							<img
+								src="assets/img/promo.png"
+								alt="Promo-2" style="width: 100%;"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+
+						<div class="item">
+							<img
+								src="assets/img/promo.png"
+								alt="Promo-3" style="width: 100%;"> <strong><c:out
+									value="${producto.nombre}"></c:out></strong> <a
+								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+								class="btn btn-success rounded" role="button"
+								style="margin: 5px">Comprar</a>
+						</div>
+
+					<!-- Controles izquierda - derecha -->
+					<a class="left carousel-control" href="#myCarousel"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left"></span> <span
+						class="sr-only">Anterior</span>
+					</a> <a class="right carousel-control" href="#myCarousel"
+						data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right"></span> <span
+						class="sr-only">Siguiente</span>
+					</a>
+					</div> --%>
+
+
+		<h2 style="color: pink; text-align: center">Listado de las atracciones y promociones de la Tierra Media</h2>
+
 		<table class="table table-stripped table-hover">
 			<thead>
 				<tr>
@@ -89,7 +176,7 @@
 						<c:if test="${!usuario.esAdmin()}">
 							<td><c:choose>
 									<c:when
-										test="${usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
+										test="${ usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
 										<a
 											href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
 											class="btn btn-success rounded" role="button">Comprar</a>
@@ -131,9 +218,8 @@
 		<c:if test="${!itinerario.getAtracciones().isEmpty()}">
 			<h1>
 
-				¡Gracias por su compra! <br> A continuación, podrá ver el
-				resumen de su itinerario: <br>
-				<br>
+				¡Gracias por su compra! <br> <i> A continuación, podrá ver
+					el resumen de su itinerario:</i> <br> <br>
 
 			</h1>
 			<h2 style="color: #069; text-align: center">
@@ -141,6 +227,8 @@
 			</h2>
 		</c:if>
 	</main>
-
+<!-- <script type="text/javascript">$('.carousel').carousel({
+  interval: 2000
+})</script> -->
 </body>
 </html>

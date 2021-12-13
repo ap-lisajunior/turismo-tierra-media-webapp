@@ -73,7 +73,7 @@ public class Atraccion extends Producto {
 	@Override
 	public String toString() {
 		return "Esta es una atraccion del tipo: " + this.getTipoAtraccion().getDescripcion() 
-				+ "\nCosto: " + this.getCosto() + " monedas."
+				+ "\n. Costo: " + this.getCosto() + " monedas."
 				+ "\nTiempo de permanencia: " + this.getTiempo() + " horas.";
 	}
 
