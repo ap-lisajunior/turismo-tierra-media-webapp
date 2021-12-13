@@ -27,26 +27,26 @@
 			</div>
 		</c:if>
 		<c:choose>
-		<c:when test="${usuario.esAdmin()}">
-			<div class="bg-light p-4 mb-3 rounded">
-				<h1>Administracion de atracciones y promociones de la TM</h1>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div class="bg-light p-4 mb-3 rounded">
-				<h1>Estas son las atracciones y promociones de la Tierra Media</h1>
-			</div>
-		</c:otherwise>
+			<c:when test="${usuario.esAdmin()}">
+				<div class="bg-light p-4 mb-3 rounded">
+					<h1>Administracion de atracciones y promociones de la TM</h1>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="bg-light p-4 mb-3 rounded">
+					<h1>Estas son las atracciones y promociones de la Tierra Media</h1>
+				</div>
+			</c:otherwise>
 		</c:choose>
 
-<%--		<c:if test="${usuario.esAdmin()}">
+		<%--		<c:if test="${usuario.esAdmin()}">
 			<div class="mb-3">
 				<a href="/turismo/atracciones/create.do" class="btn btn-primary"
 					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
 				</a>
 			</div>
 		</c:if>
---%>
+--%>	
 		<table class="table table-stripped table-hover">
 			<thead>
 				<tr>
@@ -60,22 +60,22 @@
 					<c:if test="${usuario.esAdmin()}">
 						<th>Editar</th>
 					</c:if>
-					
+
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${productos}" var="producto">
 					<tr>
 						<td><strong><c:out value="${producto.nombre}"></c:out></strong>
-						<c:if test="${producto.esUnaPromocion()}">
-							<p>Esta promocion esta compuesta por las siguientes atracciones: </p>
-							<ul>
-							<c:forEach items="${producto.getAtracciones()}" var="atraccion">
-								<li><c:out value="${atraccion.nombre}"></c:out></li>
-							</c:forEach>
-							</ul>
-						</c:if>
-						</td>
+							<c:if test="${producto.esUnaPromocion()}">
+								<p>Esta promocion esta compuesta por las siguientes
+									atracciones:</p>
+								<ul>
+									<c:forEach items="${producto.getAtracciones()}" var="atraccion">
+										<li><c:out value="${atraccion.nombre}"></c:out></li>
+									</c:forEach>
+								</ul>
+							</c:if></td>
 						<td><c:out value="${producto.costo}"></c:out></td>
 						<td><c:out value="${producto.tiempo}"></c:out></td>
 						<c:choose>
@@ -87,47 +87,59 @@
 							</c:otherwise>
 						</c:choose>
 						<c:if test="${!usuario.esAdmin()}">
-						<td>
-						<c:choose>
-							<c:when
-								test="${usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
-								<a href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
-									class="btn btn-success rounded" role="button">Comprar</a>
-							</c:when>
-							<c:otherwise>
-									<a href="#" class="btn btn-secondary rounded disabled"
-										role="button">No se puede comprar</a>
-							</c:otherwise>
-						</c:choose>
-						</td>
+							<td><c:choose>
+									<c:when
+										test="${usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
+										<a
+											href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
+											class="btn btn-success rounded" role="button">Comprar</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" class="btn btn-secondary rounded disabled"
+											role="button">No se puede comprar</a>
+									</c:otherwise>
+								</c:choose></td>
 						</c:if>
 						<td><c:if test="${usuario.esAdmin()}">
-							<c:choose>
-								<c:when test="${producto.esUnaPromocion()}">
-									<a href="/turismo/promociones/editar.do?nombre=${producto.nombre}"
-									class="btn btn-light rounded-0" role="button">
-										<i class="bi bi-pencil-fill"></i>
-									</a>
-								</c:when>
-								<c:otherwise>
-									<a href="/turismo/atracciones/editar.do?nombre=${producto.nombre}"
-									class="btn btn-light rounded-0" role="button">
-										<i class="bi bi-pencil-fill"></i>
-									</a>
-								</c:otherwise>
-							</c:choose>
-								
-<%-- 								<a href="/turismo/atracciones/delete.do?id=${atraccion.nombre}}"
+								<c:choose>
+									<c:when test="${producto.esUnaPromocion()}">
+										<a
+											href="/turismo/promociones/editar.do?nombre=${producto.nombre}"
+											class="btn btn-light rounded-0" role="button"> <i
+											class="bi bi-pencil-fill"></i>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="/turismo/atracciones/editar.do?nombre=${producto.nombre}"
+											class="btn btn-light rounded-0" role="button"> <i
+											class="bi bi-pencil-fill"></i>
+										</a>
+									</c:otherwise>
+								</c:choose>
+
+								<%-- 								<a href="/turismo/atracciones/delete.do?id=${atraccion.nombre}}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 									--%>
-							</c:if> 
-						</td>
+							</c:if></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<br>
+		<c:if test="${!itinerario.getAtracciones().isEmpty()}">
+			<h1>
 
+				¡Gracias por su compra! <br> A continuación, podrá ver el
+				resumen de su itinerario: <br>
+				<br>
+
+			</h1>
+			<h2 style="color: #069; text-align: center">
+				<c:out value="${itinerario}" />
+			</h2>
+		</c:if>
 	</main>
 
 </body>
