@@ -33,7 +33,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="bg-light p-4 mb-3 rounded">
+				
 					<c:if test="${!itinerario.getAtracciones().isEmpty()}">
 						<h2>
 
@@ -44,8 +44,8 @@
 						<h2 style="color: #069; text-align: center">
 							<c:out value="${itinerario}" />
 						</h2>
-					</c:if>					
-				</div>
+					</c:if>
+
 			</c:otherwise>
 		</c:choose>
 
@@ -201,9 +201,9 @@
 									</c:otherwise>
 								</c:choose>
 
-								<%-- <a href="/turismo/atracciones/delete.do?id=${atraccion.nombre}}"
-									class="btn btn-danger rounded" role="button"><i
-									class="bi bi-x-circle-fill"></i></a> --%>
+<%-- 								 <a href="/turismo/attractions/delete.do?nombre=${producto.nombre}" --%>
+<!-- 									class="btn btn-danger rounded" role="button"><i -->
+<!-- 									class="bi bi-x-circle-fill"></i></a>  -->
 							</c:if></td>
 					</tr>
 				</c:forEach>

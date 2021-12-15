@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-md navbar-dark mb-4" style="background-color: pink">
 	<div class="container">
 		<a class="navbar-brand" href="/turismo/index.jsp">Turismo en la Tierra Media</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"

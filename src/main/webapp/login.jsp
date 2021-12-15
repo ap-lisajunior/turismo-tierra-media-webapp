@@ -6,12 +6,11 @@
 <head>
 <jsp:include page="partials/head.jsp"></jsp:include>
 </head>
-<body>
+<body >
+		<div class="col-lg-5 mx-auto p-3 py-md-5" style="background-color: #E2EEF7" >
 
-	<div class="col-lg-5 mx-auto p-3 py-md-5">
-
-		<main>
-			<h1>Turismo en la Tierra Media</h1>
+		
+			<h1 style="text-align: center">Turismo en la Tierra Media</h1>
 
 
 			<c:if test="${flash != null}">
@@ -38,8 +37,6 @@
 					<button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
 				</div>
 			</form>
-
-		</main>
-	</div>
+		</div>
 </body>
 </html>

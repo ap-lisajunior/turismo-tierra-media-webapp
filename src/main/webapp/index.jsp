@@ -27,7 +27,7 @@
 						ver el listado.</i></span>&#128071;<br>
 				<br>
 				<a
-					style="text-decoration: none; margin-left: 400px; border-style: solid; border-radius: 20px; padding: 5px"
+					style="text-decoration: none; margin-left: 400px; border-style: solid; border-color: pink; border-radius: 20px; padding: 5px; background-color: pink; color: #FFF;"
 					href="/turismo/productos/index.do">Ir a Comprar </a>
 				<br>
 				<br>
@@ -40,7 +40,7 @@
 				<a href="productos/index.do"><h2>Listar productos</h2></a>
 			</div>
 		</c:if>
-		<img alt="tierra-media" src="assets/img/welcome.jpg" width="90%" height="70%">
+		<img alt="tierra-media" src="assets/img/welcome.jpg" width="90%" height="70%" style="border-radius: 20px">
 	</main>
 	
 </body>

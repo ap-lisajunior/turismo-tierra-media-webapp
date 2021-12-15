@@ -12,5 +12,8 @@ public interface AtraccionDAO extends GenericDAO<Producto> {
 	public abstract Atraccion findByName(String nombreAtraccion);
 
 	int updateCupo(Producto atraccion);
-	
+
+
+
+
 }
