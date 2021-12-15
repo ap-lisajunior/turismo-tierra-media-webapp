@@ -201,9 +201,9 @@
 									</c:otherwise>
 								</c:choose>
 
- 								 <%-- <a href="/turismo/attractions/delete.do?nombre=${producto.nombre}"
+ 								 <a href="/turismo/attractions/delete.do?nombre=${producto.nombre}"
 									class="btn btn-danger rounded-circle" role="button"><i
-									class="bi bi-x-circle-fill"></i></a> --%>
+									class="bi bi-x-circle-fill"></i></a>
 							</c:if></td>
 					</tr>
 				</c:forEach>

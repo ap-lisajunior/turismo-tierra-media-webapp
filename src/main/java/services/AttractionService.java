@@ -46,7 +46,7 @@ public class AttractionService {
 	}
 
 	public void delete(String nombre) {
-		Atraccion atraccion = new Atraccion(nombre);
+		Atraccion atraccion = new Atraccion(nombre, null, 0, 0, null, null);
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		atraccionDAO.delete(atraccion);

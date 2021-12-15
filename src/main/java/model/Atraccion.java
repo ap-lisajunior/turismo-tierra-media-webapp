@@ -15,10 +15,9 @@ public class Atraccion extends Producto {
 		super.activo = activo;
 	}
 	
-	public Atraccion(String nombre) {
-		super(nombre);
-	}
-	
+	/*
+	 * public Atraccion(String nombre) { super(nombre); }
+	 */
 	public String getTipo() {
 		return super.tipoAtraccion.toString();
 	}
