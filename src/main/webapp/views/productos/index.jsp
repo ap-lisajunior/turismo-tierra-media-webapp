@@ -35,15 +35,17 @@
 			<c:otherwise>
 				
 					<c:if test="${!itinerario.getAtracciones().isEmpty()}">
-						<h3>
+					<div style="background-color: #EAF4F9; border-style: solid; border-color: #B1DEF3; text-align: center;">
+						<h3 style="text-align: center;">
 
-							¡Gracias por su compra! <br> <i> A continuación, podrá
+							¡Gracias por su compra! <i> A continuación, podrá
 								ver el resumen de su itinerario:</i> <br> <br>
 
 						</h3>
-						<h2 style="color: #D69DC1; text-align: center">
+						<h4 style="color: #D69DC1; text-align: center; background-color: #EAF4F9">
 							<c:out value="${itinerario}" />
-						</h2>
+						</h4> <br>
+						</div><br>
 					</c:if>
 
 			</c:otherwise>
@@ -128,7 +130,9 @@
 		</div>
 		<br><br>
 		<h2 style="color: pink; text-align: center">Listado de las
-			atracciones y promociones de la Tierra Media</h2> <br>
+			atracciones y promociones de la Tierra Media <a
+											href="/turismo/atracciones/index.do?"
+											class="btn btn-light rounded-1" role="button" style="background-color: pink; margin-left: 20px"> <i > &#8594; Ver Descripción</i></a></h2> 
 
 		<table class="table table-stripped table-hover" >
 			<thead >

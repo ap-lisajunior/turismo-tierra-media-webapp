@@ -28,7 +28,7 @@
 		</c:if>
 
 		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son los productos de la Tierra Media</h1>
+			<h1 style="color: pink">Acá te contamos de qué tratan las atracciones del parque!</h1>
 		</div>
 
 <%--		<c:if test="${usuario.esAdmin()}">
@@ -46,7 +46,6 @@
 					<th>Costo</th>
 					<th>Duraci&oacute;n</th>
 					<th>Cupo</th>
-					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
