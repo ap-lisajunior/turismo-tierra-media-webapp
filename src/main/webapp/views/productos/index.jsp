@@ -218,7 +218,7 @@
 			</tbody>
 		</table>
 		<br>
-		<c:if test="${!itinerario.getAtracciones().isEmpty()}">
+		<%-- <c:if test="${!itinerario.getAtracciones().isEmpty()}">
 			<h1>
 
 				¡Gracias por su compra! <br> <i> A continuación, podrá ver
@@ -228,7 +228,7 @@
 			<h2 style="color: #069; text-align: center">
 				<c:out value="${itinerario}" />
 			</h2>
-		</c:if>
+		</c:if> --%>
 	</main>
 </body>
 </html>
