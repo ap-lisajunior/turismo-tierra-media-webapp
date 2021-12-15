@@ -342,7 +342,7 @@ input.checkbox:checked:after {
 /*-- responsive-design --*/
 @media(max-width:1440px){
 .item .block {
-    width: 35%; 
+    width: 45%; 
 }
 }
 @media(max-width:1366px){
@@ -370,10 +370,10 @@ input.checkbox:checked:after {
 .item .block { 
     margin: 3em auto; 
 	padding: 2em;
-	width: 52%;
+	width: 55%;
 }
 .login-form h1 {
-    font-size: 2.2em;
+    font-size: 1.8em;
 }   
 }
 @media(max-width:667px){
