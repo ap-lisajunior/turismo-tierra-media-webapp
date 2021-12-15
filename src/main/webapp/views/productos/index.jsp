@@ -34,107 +34,99 @@
 			</c:when>
 			<c:otherwise>
 				<div class="bg-light p-4 mb-3 rounded">
-					<h1>Nuestros Productos</h1>
-					<br>
-					<h2 style="color: pink; text-align: center">Estas son las
-						principales sugerencias para usted</h2>
+					<c:if test="${!itinerario.getAtracciones().isEmpty()}">
+						<h2>
+
+							¡Gracias por su compra! <br> <i> A continuación, podrá
+								ver el resumen de su itinerario:</i> <br> <br>
+
+						</h2>
+						<h2 style="color: #069; text-align: center">
+							<c:out value="${itinerario}" />
+						</h2>
+					</c:if>					
 				</div>
 			</c:otherwise>
 		</c:choose>
 
 		<!-- carousel -->
-		 <div id="carouselExampleControls" class="carousel carousel-dark slide"
-			data-bs-ride="carousel">
-			<div class="carousel-inner">
-			<c:forEach  items="${productos}" var="producto">
-			<c:if test="${ usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
-				<div class="carousel-item active"  data-bs-interval="4000">
-					<p>&#10084;</p>
-				</div>
-				<c:forEach  items="${productos}" var="producto2">
-				<c:if test="${ usuario.puedeComprar(producto2) && producto2.tieneCupo() && (!itinerario.getAtracciones().contains(producto2) && !itinerario.getPromociones().contains(producto2))}">
-				<div class="carousel-item"  data-bs-interval="4000">
-					<div>					
-						<h3 style="text-align: center">${producto2.nombre}</h3>
-						<p style="text-align: center">Costo: ${producto2.costo } - Duración: ${producto2.tiempo }</p>
-						<a href="/turismo/productos/comprar.do?nombre=${producto2.nombre}" class="btn btn-success rounded" role="button" style="margin-left: 600px">Comprar</a>
+		<c:forEach items="${productos}" var="producto">
+			<c:if
+				test="${ usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
+				<div id="carouselExampleControls"
+					class="carousel carousel-dark slide" data-bs-ride="carousel">
+			</c:if>
+		</c:forEach>
+		<div class="carousel-inner">
+			<c:forEach items="${productos}" var="producto">
+				<c:if
+					test="${ usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
+					<div class="carousel-item active" data-bs-interval="1000">
+						<p>&#10084;</p>
 					</div>
-				</div>
-				</c:if>
-				</c:forEach>
-				<c:forEach  items="${productos}" var="producto1">
-				<c:if test="${ usuario.puedeComprar(producto1) && producto1.tieneCupo() && (!itinerario.getAtracciones().contains(producto1) && !itinerario.getPromociones().contains(producto1))}">
-					<div class="carousel-item"  data-bs-interval="4000">
-					<div>					
-						<h3 style="text-align: center">${producto1.nombre}</h3>
-						<p style="text-align: center">Costo: ${producto1.costo } - Duración: ${producto1.tiempo }</p>
-						<a href="/turismo/productos/comprar.do?nombre=${producto1.nombre}" class="btn btn-success rounded" role="button" style="margin-left: 600px">Comprar</a>
-					</div>
-				</div> 
-				</c:if>
-				</c:forEach>
-				<c:forEach  items="${productos}" var="producto3">
-				<c:if test="${ usuario.puedeComprar(producto3) && producto3.tieneCupo() && (!itinerario.getAtracciones().contains(producto3) && !itinerario.getPromociones().contains(producto3))}">
-				<div class="carousel-item"  data-bs-interval="4000">
-					<div>					
-						<h3 style="text-align: center">${producto3.nombre }</h3>
-						<p style="text-align: center">Costo: ${producto3.costo } - Duración: ${producto3.tiempo }</p>
-						<a href="/turismo/productos/comprar.do?nombre=${producto3.nombre}" class="btn btn-success rounded" role="button" style="margin-left: 600px">Comprar</a>
-					</div>
-				</div> 
-				</c:if>
-				</c:forEach>
-				</c:if>
-				</c:forEach>
-				</div>
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next " type="button"
-				data-bs-target="#carouselExampleControls" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
-		</div> 
-
-		<%-- <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<c:forEach  items="${productos}" var="producto">
-				<c:if test="${ usuario.puedeComprar(producto) && producto.tieneCupo() && (!itinerario.getAtracciones().contains(producto) && !itinerario.getPromociones().contains(producto))}">
-					<c:choose>
-						<c:when test="${producto==productos[0]}">
-							<div class="carousel-item active" data-bs-interval="5000">
-							</div>
-							</c:when>
-							<c:otherwise>
-								<div class="carousel-item" data-bs-interval="5000">
+					<c:forEach items="${productos}" var="producto2">
+						<c:if
+							test="${ usuario.puedeComprar(producto2) && producto2.tieneCupo() && (!itinerario.getAtracciones().contains(producto2) && !itinerario.getPromociones().contains(producto2))}">
+							<div class="carousel-item" data-bs-interval="5000">
+								<div>
+									<h3 style="text-align: center">${producto2.nombre}</h3>
+									<p style="text-align: center">Costo: ${producto2.costo } -
+										Duración: ${producto2.tiempo }</p>
+									<a
+										href="/turismo/productos/comprar.do?nombre=${producto2.nombre}"
+										class="btn btn-success rounded" role="button"
+										style="margin-left: 600px">Comprar</a>
 								</div>
-							</c:otherwise>
-					</c:choose>
-					<div>					
-					<strong><c:out
-									value="${producto.nombre}"></c:out></strong> <a
-								href="/turismo/productos/comprar.do?nombre=${producto.nombre}"
-								class="btn btn-success rounded" role="button"
-								style="margin: 5px">Comprar</a>
-					</div>
-
+							</div>
+						</c:if>
+					</c:forEach>
+					<c:forEach items="${productos}" var="producto1">
+						<c:if
+							test="${ usuario.puedeComprar(producto1) && producto1.tieneCupo() && (!itinerario.getAtracciones().contains(producto1) && !itinerario.getPromociones().contains(producto1))}">
+							<div class="carousel-item" data-bs-interval="5000">
+								<div>
+									<h3 style="text-align: center">${producto1.nombre}</h3>
+									<p style="text-align: center">Costo: ${producto1.costo } -
+										Duración: ${producto1.tiempo }</p>
+									<a
+										href="/turismo/productos/comprar.do?nombre=${producto1.nombre}"
+										class="btn btn-success rounded" role="button"
+										style="margin-left: 600px">Comprar</a>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					<c:forEach items="${productos}" var="producto3">
+						<c:if
+							test="${ usuario.puedeComprar(producto3) && producto3.tieneCupo() && (!itinerario.getAtracciones().contains(producto3) && !itinerario.getPromociones().contains(producto3))}">
+							<div class="carousel-item" data-bs-interval="5000">
+								<div>
+									<h3 style="text-align: center">${producto3.nombre }</h3>
+									<p style="text-align: center">Costo: ${producto3.costo } -
+										Duración: ${producto3.tiempo }</p>
+									<a
+										href="/turismo/productos/comprar.do?nombre=${producto3.nombre}"
+										class="btn btn-success rounded" role="button"
+										style="margin-left: 600px">Comprar</a>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
 				</c:if>
-				</c:forEach>
-				</div>
-			
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Anterior</span>
-			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Siguiente</span>
-		  </button>
-	</div> --%>
-
+			</c:forEach>
+		</div>
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next " type="button"
+			data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Next</span>
+		</button>
+		</div>
+		<br><br>
 		<h2 style="color: pink; text-align: center">Listado de las
 			atracciones y promociones de la Tierra Media</h2>
 
@@ -217,18 +209,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<br>
-		<%-- <c:if test="${!itinerario.getAtracciones().isEmpty()}">
-			<h1>
-
-				¡Gracias por su compra! <br> <i> A continuación, podrá ver
-					el resumen de su itinerario:</i> <br> <br>
-
-			</h1>
-			<h2 style="color: #069; text-align: center">
-				<c:out value="${itinerario}" />
-			</h2>
-		</c:if> --%>
 	</main>
 </body>
 </html>
