@@ -29,19 +29,19 @@
 		<c:choose>
 			<c:when test="${usuario.esAdmin()}">
 				<div class="bg-light p-4 mb-3 rounded">
-					<h1>Administracion de atracciones y promociones de la TM</h1>
+					<h1 style="text-align: center">Administracion de atracciones y promociones de la TM</h1>
 				</div>
 			</c:when>
 			<c:otherwise>
 				
 					<c:if test="${!itinerario.getAtracciones().isEmpty()}">
-						<h2>
+						<h3>
 
 							¡Gracias por su compra! <br> <i> A continuación, podrá
 								ver el resumen de su itinerario:</i> <br> <br>
 
-						</h2>
-						<h2 style="color: #069; text-align: center">
+						</h3>
+						<h2 style="color: #D69DC1; text-align: center">
 							<c:out value="${itinerario}" />
 						</h2>
 					</c:if>
@@ -128,10 +128,10 @@
 		</div>
 		<br><br>
 		<h2 style="color: pink; text-align: center">Listado de las
-			atracciones y promociones de la Tierra Media</h2>
+			atracciones y promociones de la Tierra Media</h2> <br>
 
-		<table class="table table-stripped table-hover">
-			<thead>
+		<table class="table table-stripped table-hover" >
+			<thead >
 				<tr>
 					<th>Producto</th>
 					<th>Costo</th>
@@ -186,24 +186,24 @@
 						<td><c:if test="${usuario.esAdmin()}">
 								<c:choose>
 									<c:when test="${producto.esUnaPromocion()}">
-										<a
+										<a	
 											href="/turismo/promociones/editar.do?nombre=${producto.nombre}"
-											class="btn btn-light rounded-0" role="button"> <i
-											class="bi bi-pencil-fill"></i>
+											class="btn btn-light rounded-circle" role="button" > <i
+											class="bi bi-pencil-fill" ></i>
 										</a>
 									</c:when>
 									<c:otherwise>
 										<a
 											href="/turismo/atracciones/editar.do?nombre=${producto.nombre}"
-											class="btn btn-light rounded-0" role="button"> <i
+											class="btn btn-light rounded-circle" role="button"> <i
 											class="bi bi-pencil-fill"></i>
 										</a>
 									</c:otherwise>
 								</c:choose>
 
-<%-- 								 <a href="/turismo/attractions/delete.do?nombre=${producto.nombre}" --%>
-<!-- 									class="btn btn-danger rounded" role="button"><i -->
-<!-- 									class="bi bi-x-circle-fill"></i></a>  -->
+ 								 <%-- <a href="/turismo/attractions/delete.do?nombre=${producto.nombre}"
+									class="btn btn-danger rounded-circle" role="button"><i
+									class="bi bi-x-circle-fill"></i></a> --%>
 							</c:if></td>
 					</tr>
 				</c:forEach>
