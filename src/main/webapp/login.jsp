@@ -5,38 +5,58 @@
 <html>
 <head>
 <jsp:include page="partials/head.jsp"></jsp:include>
+<!-- Custom Theme files -->
+<link href="assets/stylesheets/login.css" rel="stylesheet"
+	type="text/css" media="all" />
+<!-- //Custom Theme files -->
 </head>
-<body >
-		<div class="col-lg-5 mx-auto p-3 py-md-5" style="background-color: #E2EEF7" >
 
-		
-			<h1 style="text-align: center">Turismo en la Tierra Media</h1>
+<body>
+	<!-- main -->
+	<div class="main-agileinfo slider ">
+		<div class="items-group">
+			<div class="item agileits-w3layouts">
+				<div class="block text main-agileits">
+					<span class="circleLight"></span>
+					<!-- login form -->
+					<div class="login-form loginw3-agile">
+						<div class="agile-row">
+							<h1>Turismo en la Tierra Media</h1>
 
+							<c:if test="${flash != null}">
+								<div class="alert alert-danger">
+									<p>
+										<c:out value="${flash}" />
+									</p>
+								</div>
+							</c:if>
 
-			<c:if test="${flash != null}">
-				<div class="alert alert-danger">
+							<div class="login-agileits-top">
+								<form action="login" method="post">
+									<p>Usuario</p>
+									<input type="text" class="name" name="username" />
+									<p>Contraseña</p>
+									<input type="password" class="password" name="password" /> <label
+										class="anim"> <input type="checkbox" class="checkbox">
+										<span> Recordarme ?</span>
+									</label> <input type="submit" value="Ingresar">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="w3lsfooteragileits">
 					<p>
-						<c:out value="${flash}" />
+						&copy; 2021 Turismo en la Tierra Media. All Rights Reserved |
+						Design by <a href="https://github.com/ap-lisajunior"
+							target="=_blank">Lisa junior</a>
 					</p>
 				</div>
-			</c:if>
-
-			<form action="login" method="post">
-
-				<div class="mb-3">
-					<label for="username" class="form-label">Usuario</label> <input
-						class="form-control" name="username">
-				</div>
-
-				<div class="mb-3">
-					<label for="password" class="form-label">Contraseña</label> <input
-						type="password" class="form-control" name="password">
-				</div>
-
-				<div class="d-grid gap-2">
-					<button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
-				</div>
-			</form>
+			</div>
 		</div>
+	</div>
+	<!-- //main -->
 </body>
 </html>
+
+
