@@ -1,3 +1,1 @@
-# Turismo en la Tierra Media
-
-Lisa Junior
+# Turismo en la Tierra MediaLisa JuniorUSUARIOS Y CONTRASEÑASAdmin - pass1;Eowyn - pass2;Gandalf - pass3;Sam - pass4;Galadriel - pass5;Frodo - pass6;Sauron - pass7;
